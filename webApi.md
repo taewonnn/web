@@ -13,3 +13,7 @@ window 안에 DOM BOM javaScript가 있음
 DOM - document
 BOM - navigator, local, storage, fetch
 javaScript - array, map
+
+console.log(window)
+console.log(this)
+console.log(innerWidth) //윈도우 창의 넓이가 출력된다 = window.innerWidth
