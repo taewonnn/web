@@ -7,7 +7,6 @@ https://developer.mozilla.org/en-US/docs/Web/API
 # Browser 구조
 
 window object
-
 window 안에 DOM BOM javaScript가 있음
 
 DOM - document
