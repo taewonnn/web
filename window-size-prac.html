@@ -19,8 +19,10 @@
       border-radius: 4px;
     }
 
-    button {
-
+    aside {
+      position: fixed;
+      top: 20px;
+      right: 20px;
     }
 
     .special {
@@ -40,9 +42,9 @@
   <div></div>
   <div></div>
   <aside>
-    <button class="scorll-by">Scroll by 100px(x)</button>
-    <button class="scorll-to">Scroll to 100px(y)</button>
-    <button class="scorll-into">Scroll into special</button>
+    <button class="scroll-by">Scroll by 100px(x)</button>
+    <button class="scroll-to">Scroll to 100px(y)</button>
+    <button class="scroll-into">Scroll into special</button>
   </aside>
   <script>
     const special = document.querySelector('.special');
@@ -52,6 +54,23 @@
       console.log(rect);
       console.log(`client: ${e.clientX}, ${e.clientY}`);
       console.log(`page : ${e.pageX}, ${e.pageY}`);
+    })
+
+    const scrollBy = document.querySelector('.scroll-by');
+    const scrollTo = document.querySelector('.scroll-to');
+    const scrollInto = document.querySelector('.scroll-into');
+
+    scrollBy.addEventListener('click', (e) => {
+      console.log(window.scrollBy);
+      window.scrollBy(0, 100);
+    })
+
+    scrollTo.addEventListener('click', (e) => {
+      window.scrollTo(0, 100);
+    })
+
+    scrollInto.addEventListener('click', (e) => {
+      special.scrollIntoView();
     })
   </script>
 </body>
