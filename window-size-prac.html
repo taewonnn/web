@@ -61,7 +61,7 @@
     const scrollInto = document.querySelector('.scroll-into');
 
     scrollBy.addEventListener('click', (e) => {
-      console.log(window.scrollBy);
+      console.log(window.scrollBy({top: 100, left:0, behavior: 'smooth'}));
       window.scrollBy(0, 100);
     })
 
