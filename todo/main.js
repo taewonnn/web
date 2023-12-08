@@ -18,8 +18,6 @@ function onAdd() {
     return;
   }
 
-  console.log(text);
-
   // 2. 새로운 아이템 생성(텍스트 + 삭제 버튼)
   const item = createItem(text);
 
