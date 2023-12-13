@@ -35,34 +35,52 @@ function onAdd() {
   input.focus();
 }
 
+// UUID 사용하는 것이 더 좋은 방법
+let id = 0;
+
 function createItem(text) {
   const itemRow = document.createElement('li');
   itemRow.setAttribute('class', 'item_row');
+  itemRow.setAttribute('data-id', id);
 
-  const item = document.createElement('div');
-  item.setAttribute('class', 'item');
+  itemRow.innerHTML = `
+    <div class="item">
+      <span class="item_name">${text}</span>
+      <button class="item_delete">
+        <i class="fa-solid fa-trash" data-id=${id}></i>
+      </button>
+    </div>
+    <div class="item_divider"></div>
+  `;
 
-  const name = document.createElement('span');
-  name.setAttribute('class', 'item_name');
-  name.innerText = text;
-
-  const itemDivider = document.createElement('div');
-  itemDivider.setAttribute('class', 'item_divider');
-
-  const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', 'item_delete');
-  deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-  deleteBtn.addEventListener('click', () => {
-    items.removeChild(itemRow);
-  });
-
-  item.appendChild(name);
-  item.appendChild(deleteBtn);
-
-  itemRow.appendChild(item);
-  itemRow.appendChild(itemDivider);
-
+  id++;
   return itemRow;
+
+  // const item = document.createElement('div');
+  // item.setAttribute('class', 'item');
+
+  // const name = document.createElement('span');
+  // name.setAttribute('class', 'item_name');
+  // name.innerText = text;
+
+  // const itemDivider = document.createElement('div');
+  // itemDivider.setAttribute('class', 'item_divider');
+
+  // const deleteBtn = document.createElement('button');
+  // deleteBtn.setAttribute('class', 'item_delete');
+  // deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+  // // 삭제 버튼 마다 모두 addEventListner를 추가하는 것은 비효율적!
+  // deleteBtn.addEventListener('click', () => {
+  //   items.removeChild(itemRow);
+  // });
+
+  // item.appendChild(name);
+  // item.appendChild(deleteBtn);
+
+  // itemRow.appendChild(item);
+  // itemRow.appendChild(itemDivider);
+
+  // return itemRow;
 }
 
 addBtn.addEventListener('click', (e) => {
@@ -74,5 +92,16 @@ input.addEventListener('keypress', (event) => {
   console.log('enter');
   if (event.key === 'Enter') {
     onAdd();
+  }
+});
+
+// 이벤트 위임
+items.addEventListener('click', (event) => {
+  // console.log(event.target);
+  const id = event.target.dataset.id;
+  if (id) {
+    // console.log('find!');
+    const toBeDeleted = document.querySelector(`.item_row[data-id='${id}']`);
+    toBeDeleted.remove();
   }
 });
