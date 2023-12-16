@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 250px;
+        height: 250px;
+        background-color: yellow;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="checkbox" />
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+      document.addEventListener(
+        'wheel',
+        (event) => {
+          console.log('scrolling');
+
+          // passive event listener(빠르게 동작해야하는 행동들)에서는 preventDefault를 할 수 없다!
+          //  { passive: false }로 바꿔주면 아래 preventDefault() 사용 가능
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+      const checkbox = document.querySelector('input');
+      checkbox.addEventListener('click', (event) => {
+        // 긴 작업 ~
+        console.log('checked');
+
+        // 브라우저에서 기본적으로 일어나는 기본 동작을 막음
+        event.preventDefault();
+      });
+    </script>
+  </body>
+</html>
