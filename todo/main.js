@@ -88,7 +88,17 @@ addBtn.addEventListener('click', (e) => {
 });
 
 // 엔터 입력 시
-input.addEventListener('keypress', (event) => {
+// keydown - 사용자가 눌렀을때, keyup - 사용자가 눌렀다가 손을 뗄 때
+input.addEventListener('keydown', (event) => {
+  // keydown 쓸 때, 사용 isComposing - 글자가 만들어지는 중에는 무시!
+  // keyup을 사용하면 따로 아래 코드 사용안해도 됨
+  if (event.isComposing) {
+    return;
+  }
+  // if (event.key === 'a') {
+  //   event.preventDefault();
+  // }
+
   console.log('enter');
   if (event.key === 'Enter') {
     onAdd();
