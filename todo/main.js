@@ -4,8 +4,14 @@
 // 4. 쓰레기통 버튼 누르면 list에서 삭제
 
 const items = document.querySelector('.items');
+const form = document.querySelector('.new-form');
 const input = document.querySelector('.footer_input');
 const addBtn = document.querySelector('.footer_button');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  onAdd();
+});
 
 /**
  * 입력 함수
@@ -83,27 +89,28 @@ function createItem(text) {
   // return itemRow;
 }
 
-addBtn.addEventListener('click', (e) => {
-  onAdd();
-});
+// addBtn.addEventListener('click', (e) => {
+//   onAdd();
+// });
 
-// 엔터 입력 시
-// keydown - 사용자가 눌렀을때, keyup - 사용자가 눌렀다가 손을 뗄 때
-input.addEventListener('keydown', (event) => {
-  // keydown 쓸 때, 사용 isComposing - 글자가 만들어지는 중에는 무시!
-  // keyup을 사용하면 따로 아래 코드 사용안해도 됨
-  if (event.isComposing) {
-    return;
-  }
-  // if (event.key === 'a') {
-  //   event.preventDefault();
-  // }
+// // 엔터 입력 시
+// // keydown - 사용자가 눌렀을때, keyup - 사용자가 눌렀다가 손을 뗄 때
+// input.addEventListener('keydown', (event) => {
+//   // keydown 쓸 때, 사용 isComposing - 글자가 만들어지는 중에는 무시!
+//   // keyup을 사용하면 따로 아래 코드 사용안해도 됨
+//   if (event.isComposing) {
+//     return;
+//   }
 
-  console.log('enter');
-  if (event.key === 'Enter') {
-    onAdd();
-  }
-});
+//   // if (event.key === 'a') {
+//   //   event.preventDefault();
+//   // }
+
+//   console.log('enter');
+//   if (event.key === 'Enter') {
+//     onAdd();
+//   }
+// });
 
 // 이벤트 위임
 items.addEventListener('click', (event) => {
