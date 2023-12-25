@@ -13,12 +13,13 @@ function initGame() {
 }
 
 function addItem(className, count, imgPath) {
+  // 기본값
   const x1 = 0;
   const y1 = 0;
   const x2 = fieldRect.width - carrotSize;
   const y2 = fieldRect.height - carrotSize;
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < couㅌㅌㅌㅌㅌㅌㅌnt; i++) {
     const item = document.createElement('img');
     item.setAttribute('class', className);
     item.setAttribute('src', imgPath);
