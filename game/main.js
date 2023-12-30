@@ -31,10 +31,16 @@ gameBtn.addEventListener('click', () => {
   } else {
     startGame();
   }
-  started = !started;
+});
+
+popUp.addEventListener('click', () => {
+  console.log('!!');
+  startGame();
+  hidePopUP();
 });
 
 function startGame() {
+  started = true;
   initGame();
   showStopButton();
   showTimerAndScore();
@@ -42,7 +48,16 @@ function startGame() {
 }
 
 function stopGame() {
+  started = false;
   stopGameTimer();
+  hideGameButton();
+  showPopUpWithText('REPLAY ?');
+}
+
+function finishGame(win) {
+  started = false;
+  hideGameButton();
+  showPopUpWithText(win ? 'YOU WON' : 'YOU LOST');
 }
 
 function startGameTimer() {
@@ -52,6 +67,7 @@ function startGameTimer() {
   timer = setInterval(() => {
     if (remainingTimeSec <= 0) {
       clearInterval(timer);
+      finishGame(carrotCount === score);
       return;
     }
     updateTimerText(--remainingTimeSec);
@@ -80,7 +96,7 @@ function hideGameButton() {
 }
 
 function showStopButton() {
-  const icon = gameBtn.querySelector('.fa-play');
+  const icon = gameBtn.querySelector('.fa-solid');
   icon.classList.add('fa-stop');
   icon.classList.remove('fa-play');
 }
@@ -88,6 +104,10 @@ function showStopButton() {
 function showPopUpWithText(text) {
   popUpText.innerText = text;
   popUp.classList.remove('popup-hide');
+}
+
+function hidePopUP() {
+  popUp.classList.add('popup-hide');
 }
 
 function initGame() {
@@ -113,8 +133,13 @@ function onFieldClick(event) {
     target.remove();
     score++;
     updateScore();
+    if (score === carrotCount) {
+      finishGame(true);
+    }
   } else if (target.matches('.bug')) {
     // 벌레!
+    stopGameTimer();
+    finishGame(false);
   }
 }
 
