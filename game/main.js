@@ -3,12 +3,18 @@
 const carrotSize = 80;
 const carrotCount = 5;
 const bugCount = 5;
+const gameDurationSec = 5;
 
 const field = document.querySelector('.game-field');
 const fieldRect = field.getBoundingClientRect();
 const gameBtn = document.querySelector('.game-button');
 const gameTimer = document.querySelector('.game-timer');
 const gameScore = document.querySelector('.game-score');
+
+// 팝업
+const popUp = document.querySelector('.popup');
+const popUpText = document.querySelector('.popup-message');
+const popUpRefresh = document.querySelector('.popup-message');
 
 // 초기값
 let started = false;
@@ -32,23 +38,53 @@ function startGame() {
   startGameTimer();
 }
 
-function startGameTimer() {}
+function stopGame() {
+  stopGameTimer();
+}
 
-function stopGameTimer() {}
+function startGameTimer() {
+  let remainingTimeSec = gameDurationSec;
+  updateTimerText(remainingTimeSec);
+  // 주기적으로 반복 할 때
+  timer = setInterval(() => {
+    if (remainingTimeSec <= 0) {
+      clearInterval(timer);
+      return;
+    }
+    updateTimerText(--remainingTimeSec);
+  }, 1000);
+}
+
+function stopGameTimer() {
+  clearInterval(timer);
+  hideGameButton();
+  showPopUpWithText('REPLAY? ');
+}
+
+function updateTimerText(time) {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  gameTimer.innerText = `${minutes} : ${seconds}`;
+}
 
 function showTimerAndScore() {
   gameTimer.style.visibility = 'visible';
   gameScore.style.visibility = 'visible';
 }
 
-function stopGame() {
-  stopGameTimer();
+function hideGameButton() {
+  gameBtn.style.visibility = 'hidden';
 }
 
 function showStopButton() {
   const icon = gameBtn.querySelector('.fa-play');
   icon.classList.add('fa-stop');
   icon.classList.remove('fa-play');
+}
+
+function showPopUpWithText(text) {
+  popUpText.innerText = text;
+  popUp.classList.remove('popup-hide');
 }
 
 function initGame() {
