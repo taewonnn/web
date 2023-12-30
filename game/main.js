@@ -21,6 +21,9 @@ let started = false;
 let score = 0;
 let timer = undefined;
 
+// 게임 영역
+field.addEventListener('click', onFieldClick);
+
 gameBtn.addEventListener('click', () => {
   console.log('click');
   if (started) {
@@ -97,6 +100,26 @@ function initGame() {
 
   addItem('carrot', carrotCount, 'img/carrot.png');
   addItem('bug', bugCount, 'img/bug.png');
+}
+
+function onFieldClick(event) {
+  // 게임 시작 상태가 아니라면 나가기
+  if (!started) {
+    return;
+  }
+  const target = event.target;
+  if (target.matches('.carrot')) {
+    // 당근 !
+    target.remove();
+    score++;
+    updateScore();
+  } else if (target.matches('.bug')) {
+    // 벌레!
+  }
+}
+
+function updateScore() {
+  gameScore.innerText = carrotCount - score;
 }
 
 function addItem(className, count, imgPath) {
