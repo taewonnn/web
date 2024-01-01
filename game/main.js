@@ -21,6 +21,9 @@ let started = false;
 let score = 0;
 let timer = undefined;
 
+// 사운드 추가
+const carrotSound = new Audio();
+
 // 게임 영역
 field.addEventListener('click', onFieldClick);
 
