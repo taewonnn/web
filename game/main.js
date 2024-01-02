@@ -22,7 +22,7 @@ let score = 0;
 let timer = undefined;
 
 // 사운드 추가
-const carrotSound = new Audio();
+const carrotSound = new Audio('./sound/carrot_pull.mp3');
 
 // 게임 영역
 field.addEventListener('click', onFieldClick);
@@ -135,6 +135,7 @@ function onFieldClick(event) {
     // 당근 !
     target.remove();
     score++;
+    playSound(carrotSound);
     updateScore();
     if (score === carrotCount) {
       finishGame(true);
@@ -145,6 +146,8 @@ function onFieldClick(event) {
     finishGame(false);
   }
 }
+
+function playSound() {}
 
 function updateScore() {
   gameScore.innerText = carrotCount - score;
