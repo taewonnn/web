@@ -147,7 +147,9 @@ function onFieldClick(event) {
   }
 }
 
-function playSound() {}
+function playSound(sound) {
+  sound.play();
+}
 
 function updateScore() {
   gameScore.innerText = carrotCount - score;
