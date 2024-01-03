@@ -23,6 +23,10 @@ let timer = undefined;
 
 // 사운드 추가
 const carrotSound = new Audio('./sound/carrot_pull.mp3');
+const alertSound = new Audio('./sound/alert.wav');
+const bgSound = new Audio('./sound/bg.mp3');
+const bugSound = new Audio('./sound/bug_pull.mp3');
+const winSound = new Audio('./sound/game_win.mp3');
 
 // 게임 영역
 field.addEventListener('click', onFieldClick);
@@ -48,6 +52,7 @@ function startGame() {
   showStopButton();
   showTimerAndScore();
   startGameTimer();
+  playSound(bgSound);
 }
 
 function stopGame() {
@@ -55,11 +60,20 @@ function stopGame() {
   stopGameTimer();
   hideGameButton();
   showPopUpWithText('REPLAY ?');
+  playSound(alertSound);
+  stopSound(bgSound);
 }
 
 function finishGame(win) {
   started = false;
+  if (win) {
+    playSound(winSound);
+  } else {
+    playSound(bugSound);
+  }
+  stopGameTimer();
   hideGameButton();
+  stopSound(bgSound);
   showPopUpWithText(win ? 'YOU WON' : 'YOU LOST');
 }
 
@@ -118,6 +132,7 @@ function initGame() {
   // console.log(fieldRect);
 
   // 초기화
+  score = 0;
   field.innerHTML = '';
   gameScore.innerText = carrotCount;
 
@@ -136,22 +151,26 @@ function onFieldClick(event) {
     target.remove();
     score++;
     playSound(carrotSound);
-    updateScore();
+    updateScoreBoard();
     if (score === carrotCount) {
       finishGame(true);
     }
   } else if (target.matches('.bug')) {
     // 벌레!
-    stopGameTimer();
     finishGame(false);
   }
 }
 
 function playSound(sound) {
+  sound.currentTime = 0;
   sound.play();
 }
 
-function updateScore() {
+function stopSound(sound) {
+  sound.pause();
+}
+
+function updateScoreBoard() {
   gameScore.innerText = carrotCount - score;
 }
 
